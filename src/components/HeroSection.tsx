@@ -19,7 +19,7 @@ const HeroSection: React.FC = () => {
               I'm <span className="text-orange">Yakubu Quadri</span>,<br />
               Full-Stack Developer
             </h1>
-            <p className="text-text-gray mb-8 max-w-lg">
+            <p className="text-text-gray mb-8 max-w-lg italic">
             Building scalable, high performance web<br/>
                 applications with clean architecture and <br/>
                 great user experiences.

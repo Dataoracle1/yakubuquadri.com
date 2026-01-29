@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-6">
         <nav className="flex justify-between items-center">
-          <div className="text-light font-bold text-2xl">Qdev</div>
+          <div className="text-light font-bold text-2xl italic">Qdev</div>
           
           {/* Mobile menu button */}
           <button 

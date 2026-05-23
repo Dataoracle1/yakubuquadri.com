@@ -1,135 +1,71 @@
-// import React from 'react';
-// import { Link } from 'react-scroll';
-// import { motion } from 'framer-motion';
-// import { heroStats } from '../data/siteData';
-
-// const HeroSection: React.FC = () => {
-//   return (
-//     <section id="home" className="pt-28 pb-16 md:py-32 bg-light">
-//       <div className="container mx-auto px-6">
-//         <div className="flex flex-col-reverse md:flex-row items-center justify-between">
-//           <motion.div 
-//             className="md:w-1/2 mt-12 md:mt-0"
-//             initial={{ opacity: 0, x: -30 }}
-//             animate={{ opacity: 1, x: 0 }}
-//             transition={{ duration: 0.8 }}
-//           >
-//             <span className="bg-gray px-4 py-1 rounded-full text-sm inline-block mb-4">Hello!</span>
-//             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-//               I'm <span className="text-orange">Yakubu Quadri</span>,<br />
-//               Full-Stack Developer
-//             </h1>
-//             <p className="text-text-gray mb-8 max-w-lg italic">
-//             Building scalable, high performance web<br/>
-//                 applications with clean architecture and <br/>
-//                 great user experiences.
-//             </p>
-            
-//             <div className="flex flex-wrap gap-4">
-//               <Link
-//                 to="portfolio"
-//                 smooth={true}
-//                 duration={500}
-//                 offset={-70}
-//                 className="bg-orange text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer inline-block"
-//               >
-//                 Portfolio
-//               </Link>
-//               <Link
-//                 to="contact"
-//                 smooth={true}
-//                 duration={500}
-//                 offset={-70}
-//                 className="bg-transparent text-dark border-2 border-dark px-8 py-3 rounded-full font-semibold hover:bg-dark hover:text-white transition-all duration-300 transform hover:-translate-y-1 cursor-pointer inline-block"
-//               >
-//                 Hire Me
-//               </Link>
-//             </div>
-            
-//             <div className="flex gap-12 mt-12">
-//               {heroStats.map((stat, index) => (
-//                 <motion.div 
-//                   key={index}
-//                   className="text-center"
-//                   initial={{ opacity: 0, y: 20 }}
-//                   animate={{ opacity: 1, y: 0 }}
-//                   transition={{ duration: 0.5, delay: 0.6 + (index * 0.2) }}
-//                 >
-//                   <span className="text-orange text-3xl font-bold block">
-//                     {stat.value}
-//                   </span>
-//                   <span className="text-text-gray text-sm">
-//                     {stat.label}
-//                   </span>
-//                 </motion.div>
-//               ))}
-//             </div>
-//           </motion.div>
-          
-//           <motion.div 
-//             className="md:w-1/2 flex justify-center"
-//             initial={{ opacity: 0, scale: 0.9 }}
-//             animate={{ opacity: 1, scale: 1 }}
-//             transition={{ duration: 0.8 }}
-//           >
-          
-
-//             <div className="relative">
-//               <img 
-//               src="https://i.postimg.cc/jqnmHCsJ/Quan2.png" 
-//               alt="Profile" 
-//               className="w-74 h-74 md:w-80 md:h-80 rounded-full object-cover object-top shadow-hero"
-//                />
-//                </div>
-//           </motion.div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroSection;
-
-
-
-
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { heroStats } from '../data/siteData';
 
+const ROLES = [
+  'Full-Stack Developer',
+  'UI/UX Enthusiast',
+  'React Specialist',
+  'Problem Solver',
+];
+
 const HeroSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [typing, setTyping] = useState(true);
+  const [charIndex, setCharIndex] = useState(0);
 
+  /* ── Particle canvas ── */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
     const particles: { x: number; y: number; r: number; dx: number; dy: number; alpha: number }[] = [];
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 55; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.5,
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: (Math.random() - 0.5) * 0.4,
-        alpha: Math.random() * 0.4 + 0.1,
+        r: Math.random() * 1.8 + 0.4,
+        dx: (Math.random() - 0.5) * 0.35,
+        dy: (Math.random() - 0.5) * 0.35,
+        alpha: Math.random() * 0.35 + 0.05,
       });
     }
 
     let animId: number;
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw connecting lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255,107,53,${0.06 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.6;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 107, 53, ${p.alpha})`;
+        ctx.fillStyle = `rgba(255,107,53,${p.alpha})`;
         ctx.fill();
         p.x += p.dx;
         p.y += p.dy;
@@ -139,8 +75,39 @@ const HeroSection: React.FC = () => {
       animId = requestAnimationFrame(draw);
     };
     draw();
-    return () => cancelAnimationFrame(animId);
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
   }, []);
+
+  /* ── Typewriter ── */
+  useEffect(() => {
+    const current = ROLES[roleIndex];
+    if (typing) {
+      if (charIndex < current.length) {
+        const t = setTimeout(() => {
+          setDisplayed(current.slice(0, charIndex + 1));
+          setCharIndex(c => c + 1);
+        }, 55);
+        return () => clearTimeout(t);
+      } else {
+        const t = setTimeout(() => setTyping(false), 1800);
+        return () => clearTimeout(t);
+      }
+    } else {
+      if (charIndex > 0) {
+        const t = setTimeout(() => {
+          setDisplayed(current.slice(0, charIndex - 1));
+          setCharIndex(c => c - 1);
+        }, 30);
+        return () => clearTimeout(t);
+      } else {
+        setRoleIndex(r => (r + 1) % ROLES.length);
+        setTyping(true);
+      }
+    }
+  }, [charIndex, typing, roleIndex]);
 
   return (
     <>
@@ -157,34 +124,27 @@ const HeroSection: React.FC = () => {
           display: flex;
           align-items: center;
         }
-
         .hero-canvas {
           position: absolute;
           inset: 0;
-          width: 100%;
-          height: 100%;
+          width: 100%; height: 100%;
           pointer-events: none;
         }
-
-        /* Large decorative text */
         .bg-text {
           position: absolute;
-          top: 50%;
-          left: 50%;
+          top: 50%; left: 50%;
           transform: translate(-50%, -50%);
           font-family: 'Playfair Display', serif;
           font-size: clamp(100px, 18vw, 260px);
           font-weight: 900;
           color: transparent;
-          -webkit-text-stroke: 1px rgba(255,107,53,0.06);
+          -webkit-text-stroke: 1px rgba(255,107,53,0.05);
           white-space: nowrap;
           pointer-events: none;
           user-select: none;
           letter-spacing: -0.04em;
           line-height: 1;
         }
-
-        /* Glow blobs */
         .blob {
           position: absolute;
           border-radius: 50%;
@@ -192,30 +152,45 @@ const HeroSection: React.FC = () => {
           pointer-events: none;
         }
         .blob-1 {
-          width: 500px;
-          height: 500px;
+          width: 500px; height: 500px;
           background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
-          top: -100px;
-          right: -100px;
+          top: -100px; right: -100px;
+          animation: blobDrift1 12s ease-in-out infinite alternate;
         }
         .blob-2 {
-          width: 350px;
-          height: 350px;
+          width: 350px; height: 350px;
           background: radial-gradient(circle, rgba(255,180,100,0.08) 0%, transparent 70%);
-          bottom: -50px;
-          left: 10%;
+          bottom: -50px; left: 10%;
+          animation: blobDrift2 15s ease-in-out infinite alternate;
+        }
+        @keyframes blobDrift1 {
+          from { transform: translate(0,0) scale(1); }
+          to   { transform: translate(-40px, 30px) scale(1.1); }
+        }
+        @keyframes blobDrift2 {
+          from { transform: translate(0,0) scale(1); }
+          to   { transform: translate(30px, -20px) scale(0.9); }
         }
 
-        /* Horizontal rule accent */
+        .hero-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 8rem 2rem 6rem;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: center;
+          position: relative;
+          z-index: 1;
+          width: 100%;
+        }
+
         .accent-line {
-          width: 60px;
-          height: 2px;
+          width: 60px; height: 2px;
           background: linear-gradient(90deg, #ff6b35, #ffaa70);
           border-radius: 2px;
           margin-bottom: 1.5rem;
         }
-
-        /* Badge */
         .badge {
           display: inline-flex;
           align-items: center;
@@ -232,61 +207,72 @@ const HeroSection: React.FC = () => {
           margin-bottom: 1.5rem;
         }
         .badge-dot {
-          width: 6px;
-          height: 6px;
+          width: 6px; height: 6px;
           background: #ff6b35;
           border-radius: 50%;
           animation: pulse 2s infinite;
         }
         @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.7); }
+          50% { opacity: 0.4; transform: scale(0.6); }
         }
 
-        /* Heading */
         .hero-title {
           font-family: 'Playfair Display', serif;
-          font-size: clamp(2.8rem, 5vw, 4.5rem);
+          font-size: clamp(2.8rem, 5vw, 4rem);
           font-weight: 900;
           line-height: 1.05;
           letter-spacing: -0.03em;
-          color: #f5f0eb;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
         }
         .hero-title .name {
+          display: block;
+          color: #f5f0eb;
+        }
+        .hero-title .role-wrap {
+          display: block;
+          min-height: 1.15em;
+        }
+        .hero-title .role {
           background: linear-gradient(135deg, #ff6b35 0%, #ffaa70 60%, #ff6b35 100%);
           background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          animation: shimmer 4s linear infinite;
+          animation: titleShimmer 4s linear infinite;
         }
-        .hero-title .role {
-          font-style: italic;
-          color: rgba(245,240,235,0.5);
-          font-size: 0.7em;
-          display: block;
-          font-weight: 700;
-          letter-spacing: 0.02em;
-          margin-top: 0.2em;
+        .cursor {
+          display: inline-block;
+          width: 3px;
+          height: 0.85em;
+          background: #ff6b35;
+          border-radius: 2px;
+          margin-left: 3px;
+          vertical-align: middle;
+          animation: blink 0.9s step-end infinite;
         }
-        @keyframes shimmer {
-          0% { background-position: 0% center; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes titleShimmer {
+          0%   { background-position: 0% center; }
           100% { background-position: 200% center; }
         }
 
-        /* Description */
         .hero-desc {
           font-size: 1rem;
-          line-height: 1.8;
-          color: rgba(245,240,235,0.5);
+          line-height: 1.85;
+          color: rgba(245,240,235,0.48);
           font-weight: 300;
-          max-width: 420px;
+          max-width: 440px;
           margin-bottom: 2.5rem;
-          letter-spacing: 0.01em;
         }
 
-        /* Buttons */
+        .btn-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          align-items: center;
+          margin-bottom: 3rem;
+        }
         .btn-primary {
           display: inline-flex;
           align-items: center;
@@ -295,17 +281,16 @@ const HeroSection: React.FC = () => {
           color: #fff;
           padding: 14px 32px;
           border-radius: 100px;
+          font-family: 'DM Sans', sans-serif;
           font-size: 14px;
           font-weight: 500;
           letter-spacing: 0.04em;
-          text-transform: uppercase;
+          border: none;
           cursor: pointer;
           transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-          text-decoration: none;
+          box-shadow: 0 8px 28px rgba(255,107,53,0.35);
           position: relative;
           overflow: hidden;
-          border: none;
-          outline: none;
         }
         .btn-primary::before {
           content: '';
@@ -315,7 +300,10 @@ const HeroSection: React.FC = () => {
           opacity: 0;
           transition: opacity 0.3s;
         }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(255,107,53,0.45); }
+        .btn-primary:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 16px 40px rgba(255,107,53,0.5);
+        }
         .btn-primary:hover::before { opacity: 1; }
 
         .btn-secondary {
@@ -323,49 +311,46 @@ const HeroSection: React.FC = () => {
           align-items: center;
           gap: 10px;
           background: transparent;
-          color: #f5f0eb;
-          padding: 13px 32px;
+          color: rgba(245,240,235,0.7);
+          padding: 14px 32px;
           border-radius: 100px;
+          font-family: 'DM Sans', sans-serif;
           font-size: 14px;
           font-weight: 500;
           letter-spacing: 0.04em;
-          text-transform: uppercase;
+          border: 1px solid rgba(245,240,235,0.15);
           cursor: pointer;
-          transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-          text-decoration: none;
-          border: 1px solid rgba(245,240,235,0.25);
+          transition: all 0.3s;
         }
         .btn-secondary:hover {
-          background: rgba(245,240,235,0.08);
-          border-color: rgba(245,240,235,0.5);
-          transform: translateY(-3px);
+          border-color: rgba(255,107,53,0.4);
+          color: #f5f0eb;
+          background: rgba(255,107,53,0.06);
+          transform: translateY(-2px);
         }
 
-        /* Stats */
         .stats-row {
           display: flex;
           gap: 2.5rem;
-          margin-top: 3rem;
           padding-top: 2rem;
-          border-top: 1px solid rgba(245,240,235,0.08);
+          border-top: 1px solid rgba(255,107,53,0.08);
         }
         .stat-value {
           font-family: 'Playfair Display', serif;
           font-size: 2.2rem;
           font-weight: 900;
           color: #ff6b35;
-          line-height: 1;
           display: block;
-          letter-spacing: -0.02em;
+          line-height: 1;
+          letter-spacing: -0.03em;
         }
         .stat-label {
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
+          font-size: 12px;
           color: rgba(245,240,235,0.35);
-          margin-top: 6px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-top: 4px;
           display: block;
-          font-weight: 500;
         }
 
         /* Image side */
@@ -375,226 +360,103 @@ const HeroSection: React.FC = () => {
           align-items: center;
           justify-content: center;
         }
-
-        /* Rotating ring */
         .ring {
           position: absolute;
           border-radius: 50%;
-          border: 1px dashed rgba(255,107,53,0.3);
+          border: 1px solid rgba(255,107,53,0.12);
+          pointer-events: none;
+        }
+        .ring-1 {
+          width: 340px; height: 340px;
           animation: spin 20s linear infinite;
         }
-        .ring-1 { width: 360px; height: 360px; }
-        .ring-2 { width: 420px; height: 420px; animation-direction: reverse; animation-duration: 30s; border-color: rgba(255,107,53,0.12); }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
+        .ring-2 {
+          width: 400px; height: 400px;
+          border-style: dashed;
+          border-color: rgba(255,107,53,0.07);
+          animation: spin 30s linear infinite reverse;
+        }
         .ring-dot {
           position: absolute;
-          width: 8px;
-          height: 8px;
-          background: #ff6b35;
+          top: 0; left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 8px; height: 8px;
           border-radius: 50%;
-          top: -4px;
-          left: 50%;
-          transform: translateX(-50%);
-          box-shadow: 0 0 12px #ff6b35;
+          background: #ff6b35;
+          box-shadow: 0 0 12px rgba(255,107,53,0.7);
         }
-
-        /* Image container */
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
         .img-container {
-          width: 300px;
-          height: 300px;
-          border-radius: 40% 60% 55% 45% / 45% 55% 60% 40%;
+          width: 260px; height: 260px;
+          border-radius: 50%;
           overflow: hidden;
+          border: 3px solid rgba(255,107,53,0.2);
           position: relative;
           z-index: 2;
-          border: 2px solid rgba(255,107,53,0.2);
-          box-shadow: 0 0 0 12px rgba(255,107,53,0.04), 0 30px 80px rgba(0,0,0,0.5);
-          animation: morph 8s ease-in-out infinite;
+          box-shadow: 0 0 60px rgba(255,107,53,0.15), 0 30px 80px rgba(0,0,0,0.5);
         }
-        @keyframes morph {
-          0%, 100% { border-radius: 40% 60% 55% 45% / 45% 55% 60% 40%; }
-          25% { border-radius: 55% 45% 40% 60% / 60% 40% 55% 45%; }
-          50% { border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; }
-          75% { border-radius: 45% 55% 50% 50% / 55% 45% 40% 60%; }
-        }
-
         .img-container img {
-          width: 100%;
-          height: 100%;
+          width: 100%; height: 100%;
           object-fit: cover;
           object-position: top;
+          transition: transform 0.6s ease;
         }
+        .img-container:hover img { transform: scale(1.04); }
 
-        /* Floating card */
+        /* Floating cards */
         .float-card {
           position: absolute;
-          background: rgba(20,20,20,0.85);
-          backdrop-filter: blur(20px);
+          background: rgba(15,15,15,0.9);
           border: 1px solid rgba(255,107,53,0.2);
-          border-radius: 16px;
-          padding: 12px 18px;
+          border-radius: 14px;
+          padding: 10px 16px;
+          backdrop-filter: blur(12px);
           z-index: 3;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
         .float-card-1 {
-          bottom: 20px;
-          right: -20px;
-          animation: float 4s ease-in-out infinite;
+          bottom: 20px; right: 0;
+          animation: floatA 4s ease-in-out infinite;
         }
         .float-card-2 {
-          top: 30px;
-          left: -30px;
-          animation: float 5s ease-in-out infinite 1s;
+          top: 20px; left: 0;
+          animation: floatB 5s ease-in-out infinite;
         }
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+        @keyframes floatA {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
         }
-        .float-card .card-label {
+        @keyframes floatB {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(8px); }
+        }
+        .card-label {
           font-size: 10px;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: rgba(245,240,235,0.4);
-          margin-bottom: 4px;
+          color: rgba(245,240,235,0.35);
         }
-        .float-card .card-value {
+        .card-value {
           font-family: 'Playfair Display', serif;
-          font-size: 1.3rem;
+          font-size: 1.2rem;
           font-weight: 700;
-          color: #ff6b35;
+          color: #ff9a6c;
+          line-height: 1.2;
         }
 
-        /* Layout */
-        .hero-inner {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2rem;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
-          gap: 4rem;
-          position: relative;
-          z-index: 1;
-          width: 100%;
-        }
-
-        @media (max-width: 768px) {
-          .hero-section {
-            min-height: 100svh;
-            align-items: flex-start;
-            padding-top: 0;
-          }
-
-          .hero-inner {
-            grid-template-columns: 1fr;
-            text-align: center;
-            gap: 2rem;
-            padding: 5rem 1.25rem 6rem;
-          }
-
-          /* Image comes first on mobile */
-          .image-wrapper { order: -1; }
-
-          /* Shrink rings + image to fit screen */
-          .img-container {
-            width: 190px;
-            height: 190px;
-          }
-          .ring-1 { width: 230px; height: 230px; }
-          .ring-2 { width: 270px; height: 270px; }
-
-          /* Pull floating cards inward so they don't overflow */
-          .float-card { padding: 8px 14px; }
-          .float-card-1 {
-            bottom: 6px;
-            right: 4px;
-          }
-          .float-card-2 {
-            top: 6px;
-            left: 4px;
-          }
-          .float-card .card-value { font-size: 1.1rem; }
-
-          /* Centre badge + accent line */
-          .badge {
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 1rem;
-          }
-          .accent-line {
-            margin: 0 auto 1.25rem;
-          }
-
-          /* Smaller title on mobile */
-          .hero-title {
-            font-size: clamp(2rem, 8.5vw, 2.8rem);
-            margin-bottom: 1rem;
-          }
-
-          .hero-desc {
-            font-size: 0.9rem;
-            margin: 0 auto 2rem;
-          }
-
-          /* Buttons full-width on very small screens */
-          .btn-row {
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-          }
-          .btn-primary,
-          .btn-secondary {
-            width: 100%;
-            max-width: 280px;
-            justify-content: center;
-            padding: 13px 24px;
-          }
-
-          /* Stats row */
-          .stats-row {
-            justify-content: center;
-            gap: 1.75rem;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-          }
-          .stat-value { font-size: 1.8rem; }
-
-          /* Hide scroll hint on mobile — saves space */
-          .scroll-hint { display: none; }
-
-          /* Shrink background text so it doesn't cause overflow */
-          .bg-text { font-size: clamp(70px, 22vw, 120px); }
-        }
-
-        /* Extra small phones */
-        @media (max-width: 380px) {
-          .hero-inner { padding: 4.5rem 1rem 5rem; }
-          .img-container { width: 160px; height: 160px; }
-          .ring-1 { width: 195px; height: 195px; }
-          .ring-2 { width: 230px; height: 230px; }
-          .hero-title { font-size: clamp(1.75rem, 9vw, 2.2rem); }
-          .stats-row { gap: 1.25rem; }
-          .stat-value { font-size: 1.5rem; }
-        }
-
-        .btn-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-          align-items: center;
-        }
-
-        /* Scroll indicator */
+        /* Scroll hint */
         .scroll-hint {
           position: absolute;
-          bottom: 2rem;
-          left: 50%;
+          bottom: 2rem; left: 50%;
           transform: translateX(-50%);
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 8px;
-          opacity: 0.3;
+          opacity: 0.25;
           z-index: 2;
         }
         .scroll-hint span {
@@ -604,16 +466,40 @@ const HeroSection: React.FC = () => {
           color: #f5f0eb;
         }
         .scroll-arrow {
-          width: 1px;
-          height: 40px;
+          width: 1px; height: 40px;
           background: linear-gradient(to bottom, #f5f0eb, transparent);
           animation: scrollDrop 1.5s ease-in-out infinite;
         }
         @keyframes scrollDrop {
-          0% { transform: scaleY(0); transform-origin: top; }
-          50% { transform: scaleY(1); transform-origin: top; }
-          51% { transform: scaleY(1); transform-origin: bottom; }
+          0%   { transform: scaleY(0); transform-origin: top; }
+          50%  { transform: scaleY(1); transform-origin: top; }
+          51%  { transform: scaleY(1); transform-origin: bottom; }
           100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        @media (max-width: 900px) {
+          .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 6rem 1.5rem 5rem; }
+          .image-wrapper { order: -1; }
+          .img-container { width: 200px; height: 200px; }
+          .ring-1 { width: 245px; height: 245px; }
+          .ring-2 { width: 290px; height: 290px; }
+          .float-card-1 { right: 10%; }
+          .float-card-2 { left: 10%; }
+          .accent-line { margin: 0 auto 1.25rem; }
+          .badge { margin-left: auto; margin-right: auto; }
+          .hero-desc { margin: 0 auto 2rem; }
+          .btn-row { justify-content: center; }
+          .stats-row { justify-content: center; }
+          .scroll-hint { display: none; }
+        }
+        @media (max-width: 480px) {
+          .hero-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+          .img-container { width: 170px; height: 170px; }
+          .ring-1 { width: 210px; height: 210px; }
+          .ring-2 { width: 250px; height: 250px; }
+          .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
+          .stats-row { gap: 1.5rem; }
+          .stat-value { font-size: 1.8rem; }
         }
       `}</style>
 
@@ -634,12 +520,14 @@ const HeroSection: React.FC = () => {
               <span className="badge-dot" />
               Available for work
             </div>
-
             <div className="accent-line" />
 
             <h1 className="hero-title">
               <span className="name">Yakubu Quadri</span>
-              <span className="role">Full-Stack Developer</span>
+              <span className="role-wrap">
+                <span className="role">{displayed}</span>
+                <span className="cursor" />
+              </span>
             </h1>
 
             <p className="hero-desc">
@@ -656,19 +544,17 @@ const HeroSection: React.FC = () => {
                 </button>
               </Link>
               <Link to="contact" smooth duration={500} offset={-70}>
-                <button className="btn-secondary">
-                  Hire Me
-                </button>
+                <button className="btn-secondary">Hire Me</button>
               </Link>
             </div>
 
             <div className="stats-row">
-              {heroStats.map((stat, index) => (
+              {heroStats.map((stat, i) => (
                 <motion.div
-                  key={index}
+                  key={i}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.15 }}
+                  transition={{ duration: 0.5, delay: 0.8 + i * 0.15 }}
                 >
                   <span className="stat-value">{stat.value}</span>
                   <span className="stat-label">{stat.label}</span>
@@ -686,15 +572,9 @@ const HeroSection: React.FC = () => {
           >
             <div className="ring ring-2"><div className="ring-dot" /></div>
             <div className="ring ring-1" />
-
             <div className="img-container">
-              <img
-                src="https://i.postimg.cc/jqnmHCsJ/Quan2.png"
-                alt="Yakubu Quadri"
-              />
+              <img src="https://i.postimg.cc/jqnmHCsJ/Quan2.png" alt="Yakubu Quadri" />
             </div>
-
-            {/* Floating cards */}
             <div className="float-card float-card-1">
               <div className="card-label">Experience</div>
               <div className="card-value">5+ Yrs</div>

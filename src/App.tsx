@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
@@ -10,29 +10,36 @@ import ContactSection from './components/ContactSection';
 import TagsSection from './components/TagsSection';
 import BlogSection from './components/BlogSection';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
+import CursorAndProgress from './components/CursorAndProgress';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Scroll to top on page load
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="font-sans">
-      <Header />
-      <main>
-        <HeroSection />
-        <ServicesSection />
-        <ExperienceSection />
-        <WhyHireSection />
-        <PortfolioSection />
-        <TestimonialsSection />
-        <ContactSection />
-        <TagsSection />
-        <BlogSection />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <CursorAndProgress />
+      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      <div className="font-sans" style={{ visibility: loading ? 'hidden' : 'visible' }}>
+        <Header />
+        <main>
+          <HeroSection />
+          <ServicesSection />
+          <ExperienceSection />
+          <WhyHireSection />
+          <PortfolioSection />
+          <TestimonialsSection />
+          <ContactSection />
+          <TagsSection />
+          <BlogSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
 

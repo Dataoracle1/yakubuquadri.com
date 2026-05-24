@@ -19,6 +19,7 @@ const HeroSection: React.FC = () => {
 
   /* ── Particle canvas ── */
   useEffect(() => {
+    if (window.innerWidth < 768) return; // skip canvas on mobile
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -32,7 +33,7 @@ const HeroSection: React.FC = () => {
     window.addEventListener('resize', resize);
 
     const particles: { x: number; y: number; r: number; dx: number; dy: number; alpha: number }[] = [];
-    for (let i = 0; i < 55; i++) {
+    for (let i = 0; i < 20; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,

@@ -327,13 +327,16 @@ const Footer: React.FC = () => {
           {/* Columns */}
           <motion.div
             className="ft-cols"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } }
+            }}
           >
             {/* About */}
-            <div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
               <div className="ft-col-heading">About</div>
               <p className="ft-about-text">
                 Professional full-stack developer with a passion for creating meaningful digital experiences that solve real business problems.
@@ -351,11 +354,11 @@ const Footer: React.FC = () => {
                   </motion.a>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Link columns */}
             {footerColumns.map((col, i) => (
-              <div key={i}>
+              <motion.div key={i} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
                 <div className="ft-col-heading">{col.title}</div>
                 <ul className="ft-links">
                   {col.links.map((link, j) => (
@@ -364,11 +367,11 @@ const Footer: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
 
             {/* Newsletter */}
-            <div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
               <div className="ft-col-heading">Newsletter</div>
               <p className="ft-nl-text">
                 Design tips, project updates, and insights — straight to your inbox.
@@ -398,7 +401,7 @@ const Footer: React.FC = () => {
                   </button>
                 </form>
               )}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Bottom bar */}

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { services } from '../data/siteData';
@@ -338,9 +337,10 @@ const ServicesSection: React.FC = () => {
                 onMouseEnter={() => setHovered(index)}
                 onMouseLeave={() => setHovered(null)}
                 variants={{
-                  hidden: { opacity: 0, y: 24 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+                  hidden: { opacity: 0, y: 30, scale: 0.96 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }
                 }}
+                whileHover={{ y: -4, transition: { duration: 0.3 } }}
               >
                 <div className="sv-card-corner" />
                 <div className="sv-card-index">

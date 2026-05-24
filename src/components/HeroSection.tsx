@@ -513,10 +513,14 @@ const HeroSection: React.FC = () => {
         <div className="hero-inner">
           {/* Left: Text */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
+            }}
           >
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
             <div className="badge">
               <span className="badge-dot" />
               Available for work
@@ -535,7 +539,7 @@ const HeroSection: React.FC = () => {
               Building scalable, high-performance web applications with clean architecture and unforgettable user experiences.
             </p>
 
-            <div className="btn-row">
+            <motion.div className="btn-row" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
               <Link to="portfolio" smooth duration={500} offset={-70}>
                 <button className="btn-primary">
                   View Portfolio
@@ -549,19 +553,18 @@ const HeroSection: React.FC = () => {
               </Link>
             </div>
 
-            <div className="stats-row">
+            </motion.div>
+            <motion.div
+              className="stats-row"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } } }}
+            >
               {heroStats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 + i * 0.15 }}
-                >
+                <div key={i}>
                   <span className="stat-value">{stat.value}</span>
                   <span className="stat-label">{stat.label}</span>
-                </motion.div>
+                </div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right: Image */}

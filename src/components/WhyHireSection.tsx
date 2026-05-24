@@ -1,10 +1,42 @@
-
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { whyHireStats } from '../data/siteData';
 
+// Animated counter component
+const CountUp: React.FC<{ target: string; inView: boolean }> = ({ target, inView }) => {
+  const [count, setCount] = useState(0);
+  const numericTarget = parseInt(target.replace(/\D/g, '')) || 0;
+  const suffix = target.replace(/[0-9]/g, '');
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const duration = 1500;
+    const step = duration / numericTarget;
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start >= numericTarget) clearInterval(timer);
+    }, step);
+    return () => clearInterval(timer);
+  }, [inView, numericTarget]);
+
+  return <>{inView ? `${count}${suffix}` : `0${suffix}`}</>;
+};
+
 const WhyHireSection: React.FC = () => {
+  const [statsInView, setStatsInView] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStatsInView(true); },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
   return (
     <>
       <style>{`
@@ -460,7 +492,7 @@ const WhyHireSection: React.FC = () => {
               </p>
 
               {/* Stats grid */}
-              <div className="wh-stats">
+              <div className="wh-stats" ref={statsRef}>
                 {whyHireStats.map((stat, index) => (
                   <motion.div
                     key={index}
@@ -470,7 +502,7 @@ const WhyHireSection: React.FC = () => {
                     transition={{ duration: 0.45, delay: 0.2 + index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <span className="wh-stat-value">{stat.value}</span>
+                    <span className="wh-stat-value"><CountUp target={stat.value} inView={statsInView} /></span>
                     <span className="wh-stat-label">{stat.label}</span>
                   </motion.div>
                 ))}

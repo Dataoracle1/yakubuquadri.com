@@ -86,15 +86,17 @@ export const whyHireStats: Stat[] = [
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    image: ' https://pikwy.com/web/6a12d78cef09c27ae8620ec8',
     title: 'UX/UI Design',
     category: 'Design',
+    url: 'https://www.medissan.com'
   },
   {
     id: 2,
-    image: 'https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    image: 'https://pikwy.com/web/6a12da2989e02720e47d04b8',
     title: 'Landing Page',
     category: 'Design',
+    url: 'https://inkstonemediang.vercel.app'
   },
   {
     id: 3,

@@ -86,14 +86,14 @@ export const whyHireStats: Stat[] = [
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    image: ' https://pikwy.com/web/6a12d78cef09c27ae8620ec8',
+    image: ' https://pikwy.com/web/6a12d78cef09c27ae8620ec8.jpg',
     title: 'UX/UI Design',
     category: 'Design',
     url: 'https://www.medissan.com'
   },
   {
     id: 2,
-    image: 'https://pikwy.com/web/6a12da2989e02720e47d04b8',
+    image: 'https://api.pikwy.com/web/6a12da2989e02720e47d04b8.jpg',
     title: 'Landing Page',
     category: 'Design',
     url: 'https://inkstonemediang.vercel.app'

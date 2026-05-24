@@ -86,7 +86,7 @@ export const whyHireStats: Stat[] = [
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    image: ' https://pikwy.com/web/6a12d78cef09c27ae8620ec8.jpg',
+    image: 'https://i.postimg.cc/76BYB4g0/Medissan.jpg',
     title: 'UX/UI Design',
     category: 'Design',
     url: 'https://www.medissan.com'

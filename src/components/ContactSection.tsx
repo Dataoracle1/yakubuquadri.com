@@ -1,253 +1,3 @@
-// import React, { useState } from 'react';
-// import { motion } from 'framer-motion';
-
-// interface FormData {
-//   name: string;
-//   email: string;
-//   subject: string;
-//   message: string;
-// }
-
-// interface FormErrors {
-//   name?: string;
-//   email?: string;
-//   subject?: string;
-//   message?: string;
-// }
-
-// const ContactSection: React.FC = () => {
-//   const [formData, setFormData] = useState<FormData>({
-//     name: '',
-//     email: '',
-//     subject: '',
-//     message: ''
-//   });
-  
-//   const [errors, setErrors] = useState<FormErrors>({});
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-//   const validateForm = (): boolean => {
-//     const newErrors: FormErrors = {};
-    
-//     if (!formData.name.trim()) {
-//       newErrors.name = 'Name is required';
-//     }
-    
-//     if (!formData.email.trim()) {
-//       newErrors.email = 'Email is required';
-//     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-//       newErrors.email = 'Email is invalid';
-//     }
-    
-//     if (!formData.subject.trim()) {
-//       newErrors.subject = 'Subject is required';
-//     }
-    
-//     if (!formData.message.trim()) {
-//       newErrors.message = 'Message is required';
-//     }
-    
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value
-//     });
-    
-//     if (errors[name as keyof FormErrors]) {
-//       setErrors({
-//         ...errors,
-//         [name]: undefined
-//       });
-//     }
-//   };
-
-//   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-//     event.preventDefault();
-    
-//     if (validateForm()) {
-//       setIsSubmitting(true);
-      
-//       const formPayload = new FormData();
-//       formPayload.append("access_key", "d4c7caea-f1fc-48f7-a133-e2706dd0be1a");
-//       formPayload.append("name", formData.name);
-//       formPayload.append("email", formData.email);
-//       formPayload.append("subject", formData.subject);
-//       formPayload.append("message", formData.message);
-
-//       try {
-//         const response = await fetch("https://api.web3forms.com/submit", {
-//           method: "POST",
-//           body: formPayload
-//         });
-
-//         const data = await response.json();
-
-//         if (data.success) {
-//           setSubmitStatus('success');
-//           setFormData({ name: '', email: '', subject: '', message: '' });
-//           setTimeout(() => setSubmitStatus('idle'), 5000);
-//         } else {
-//           setSubmitStatus('error');
-//           setTimeout(() => setSubmitStatus('idle'), 5000);
-//         }
-//       } catch (error) {
-//         console.error('Error submitting form:', error);
-//         setSubmitStatus('error');
-//         setTimeout(() => setSubmitStatus('idle'), 5000);
-//       } finally {
-//         setIsSubmitting(false);
-//       }
-//     }
-//   };
-
-//   return (
-//     <section id="contact" className="py-20 bg-white">
-//       <div className="container mx-auto px-6">
-//         <div className="text-center mb-16">
-//           <motion.h2 
-//             className="text-3xl font-bold relative inline-block pb-3"
-//             initial={{ opacity: 0, y: -20 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.5 }}
-//             viewport={{ once: true }}
-//           >
-//             Have An Awesome Project Idea? Let's Discuss
-//             <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-orange"></span>
-//           </motion.h2>
-//         </div>
-        
-//         <motion.div 
-//           className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 md:p-12"
-//           initial={{ opacity: 0, y: 30 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.6 }}
-//           viewport={{ once: true }}
-//         >
-//           {submitStatus === 'success' ? (
-//             <motion.div 
-//               className="text-center py-8"
-//               initial={{ opacity: 0 }}
-//               animate={{ opacity: 1 }}
-//               transition={{ duration: 0.4 }}
-//             >
-//               <div className="text-5xl mb-4 text-green-500">✓</div>
-//               <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-//               <p className="text-text-gray">Your message has been sent successfully. I'll get back to you soon!</p>
-//             </motion.div>
-//           ) : submitStatus === 'error' ? (
-//             <motion.div 
-//               className="text-center py-8"
-//               initial={{ opacity: 0 }}
-//               animate={{ opacity: 1 }}
-//               transition={{ duration: 0.4 }}
-//             >
-//               <div className="text-5xl mb-4 text-red-500">✗</div>
-//               <h3 className="text-2xl font-bold mb-2">Oops!</h3>
-//               <p className="text-text-gray mb-4">Something went wrong. Please try again or email me directly.</p>
-//               <button
-//                 onClick={() => setSubmitStatus('idle')}
-//                 className="bg-orange text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors"
-//               >
-//                 Try Again
-//               </button>
-//             </motion.div>
-//           ) : (
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//               <div className="space-y-2">
-//                 <input
-//                   type="text"
-//                   name="name"
-//                   value={formData.name}
-//                   onChange={handleChange}
-//                   placeholder="Your Name"
-//                   className={`w-full px-4 py-3 rounded-lg border ${
-//                     errors.name ? 'border-red-500' : 'border-gray-300'
-//                   } focus:outline-none focus:ring-2 focus:ring-orange focus:border-transparent`}
-//                 />
-//                 {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-//               </div>
-              
-//               <div className="space-y-2">
-//                 <input
-//                   type="email"
-//                   name="email"
-//                   value={formData.email}
-//                   onChange={handleChange}
-//                   placeholder="Your Email"
-//                   className={`w-full px-4 py-3 rounded-lg border ${
-//                     errors.email ? 'border-red-500' : 'border-gray-300'
-//                   } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent`}
-//                 />
-//                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-//               </div>
-              
-//               <div className="space-y-2 md:col-span-2">
-//                 <input
-//                   type="text"
-//                   name="subject"
-//                   value={formData.subject}
-//                   onChange={handleChange}
-//                   placeholder="Subject"
-//                   className={`w-full px-4 py-3 rounded-lg border ${
-//                     errors.subject ? 'border-red-500' : 'border-gray-300'
-//                   } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent`}
-//                 />
-//                 {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
-//               </div>
-              
-//               <div className="space-y-2 md:col-span-2">
-//                 <textarea
-//                   name="message"
-//                   value={formData.message}
-//                   onChange={handleChange}
-//                   placeholder="Your Message"
-//                   rows={6}
-//                   className={`w-full px-4 py-3 rounded-lg border ${
-//                     errors.message ? 'border-red-500' : 'border-gray-300'
-//                   } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none`}
-//                 ></textarea>
-//                 {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
-//               </div>
-              
-//               <div className="md:col-span-2 text-center">
-//                 <button
-//                   onClick={handleSubmit}
-//                   disabled={isSubmitting}
-//                   className="bg-orange text-white px-10 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-//                 >
-//                   {isSubmitting ? (
-//                     <span className="flex items-center justify-center">
-//                       <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-//                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-//                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-//                       </svg>
-//                       Sending...
-//                     </span>
-//                   ) : (
-//                     'Send Message'
-//                   )}
-//                 </button>
-//               </div>
-//             </div>
-//           )}
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default ContactSection;
-
-
-
-
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -288,6 +38,8 @@ const ContactSection: React.FC = () => {
     payload.append('email', formData.email);
     payload.append('subject', formData.subject);
     payload.append('message', formData.message);
+    payload.append('from_name', 'Yakubu Quadri');
+    payload.append('replyto', formData.email);
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload });
       const data = await res.json();
@@ -362,15 +114,16 @@ const ContactSection: React.FC = () => {
   `;
 
   const socials = [
-    { label: 'GitHub',   d: 'M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' },
-    { label: 'LinkedIn', d: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z' },
-    { label: 'Twitter',  d: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' },
+    { label: 'GitHub',    href: '#',                                        d: 'M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' },
+    { label: 'LinkedIn',  href: '#',                                        d: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z' },
+    { label: 'Facebook',  href: 'https://facebook.com/mhzta.shyne',        d: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z' },
   ];
 
   const contactItems = [
-    { label: 'Email', value: 'yakubuquadri@email.com', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg> },
-    { label: 'Location', value: 'Lagos, Nigeria', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> },
-    { label: 'Availability', value: 'Open to opportunities', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> },
+    { label: 'Email',        value: 'Yakubuquadreal@gmail.com',  icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg> },
+    { label: 'Phone',        value: '+2347031661604',             icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> },
+    { label: 'Location',     value: 'Lagos, Nigeria',             icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> },
+    { label: 'Availability', value: 'Open to opportunities',      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> },
   ];
 
   return (
@@ -400,7 +153,7 @@ const ContactSection: React.FC = () => {
               </div>
               <div className="ct-socials">
                 {socials.map((s, i) => (
-                  <a key={i} href="#" className="ct-social-btn" aria-label={s.label}>
+                  <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="ct-social-btn" aria-label={s.label}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={s.d}/></svg>
                   </a>
                 ))}

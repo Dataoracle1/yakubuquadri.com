@@ -12,6 +12,7 @@ import TagsSection from './components/TagsSection';
 import Footer from './components/Footer';
 import Preloader from './components/Preloader';
 import CursorAndProgress from './components/CursorAndProgress';
+import WhatsAppButton from './components/Whatsappbutton';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,7 @@ function App() {
           {/* <BlogSection /> */}
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </>
   );

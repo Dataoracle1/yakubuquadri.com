@@ -93,7 +93,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 2,
-    image: 'https://api.pikwy.com/web/6a12da2989e02720e47d04b8.jpg',
+    image: 'https://i.postimg.cc/d38Nss43/inkstone.jpg',
     title: 'Landing Page',
     category: 'Design',
     url: 'https://inkstonemediang.vercel.app'

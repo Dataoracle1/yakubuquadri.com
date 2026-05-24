@@ -53,7 +53,7 @@ const ContactSection: React.FC = () => {
   };
 
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+   
     .ct-section{font-family:'DM Sans',sans-serif;background:#0a0a0a;color:#f5f0eb;padding:7rem 0 8rem;position:relative;overflow:hidden}
     .ct-blob{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none}
     .ct-blob-1{width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,53,.11) 0%,transparent 70%);top:-200px;left:-200px}

@@ -46,7 +46,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           exit={{ opacity: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
         >
           <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+           
 
             .pl-root {
               position: fixed;

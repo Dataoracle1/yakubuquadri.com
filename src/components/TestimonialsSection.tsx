@@ -28,8 +28,7 @@ const TestimonialsSection: React.FC = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
-
+       
         .tm-section {
           font-family: 'DM Sans', sans-serif;
           background: #080808;

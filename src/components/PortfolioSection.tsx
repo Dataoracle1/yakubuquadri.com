@@ -1,114 +1,11 @@
-// import React, { useState } from 'react';
-// import { motion } from 'framer-motion';
-// import { portfolioItems } from '../data/siteData';
-
-// const PortfolioSection: React.FC = () => {
-//   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-
-//   const containerVariants = {
-//     hidden: { opacity: 0 },
-//     visible: {
-//       opacity: 1,
-//       transition: {
-//         staggerChildren: 0.1
-//       }
-//     }
-//   };
-
-//   const itemVariants = {
-//     hidden: { opacity: 0, y: 20 },
-//     visible: {
-//       opacity: 1,
-//       y: 0,
-//       transition: { duration: 0.5 }
-//     }
-//   };
-
-//   return (
-//     <section id="portfolio" className="py-20 bg-white">
-//       <div className="container mx-auto px-6">
-//         <div className="text-center mb-16">
-//           <motion.h2 
-//             className="text-3xl font-bold relative inline-block pb-3"
-//             initial={{ opacity: 0, y: -20 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.5 }}
-//             viewport={{ once: true }}
-//           >
-//             Let's Have a Look at my Portfolio
-//             <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-orange"></span>
-//           </motion.h2>
-//         </div>
-        
-//         <motion.div 
-//           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-//           variants={containerVariants}
-//           initial="hidden"
-//           whileInView="visible"
-//           viewport={{ once: true }}
-//         >
-//           {portfolioItems.map((item) => (
-//             <motion.div 
-//               key={item.id}
-//               className="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
-//               variants={itemVariants}
-//               onMouseEnter={() => setHoveredItem(item.id)}
-//               onMouseLeave={() => setHoveredItem(null)}
-//             >
-//               <img 
-//                 src={item.image} 
-//                 alt={item.title}
-//                 className="w-full h-64 object-cover transition-all duration-300 group-hover:scale-110"
-//               />
-              
-//               <motion.div 
-//                 className="absolute inset-0 bg-orange bg-opacity-80 flex items-center justify-center p-6"
-//                 initial={{ opacity: 0 }}
-//                 animate={{ opacity: hoveredItem === item.id ? 1 : 0 }}
-//                 transition={{ duration: 0.3 }}
-//               >
-//                 <div className="text-center">
-//                   <h3 className="text-white text-xl font-bold mb-2">{item.title}</h3>
-//                   <span className="text-white text-sm px-4 py-1 border border-white rounded-full inline-block">
-//                     {item.category}
-//                   </span>
-//                 </div>
-//               </motion.div>
-//             </motion.div>
-//           ))}
-//         </motion.div>
-        
-//         <div className="text-center mt-12">
-//           <motion.button 
-//             className="bg-orange text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1"
-//             initial={{ opacity: 0 }}
-//             whileInView={{ opacity: 1 }}
-//             transition={{ duration: 0.5, delay: 0.5 }}
-//             viewport={{ once: true }}
-//           >
-//             See More
-//           </motion.button>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default PortfolioSection;
-
-
-
-
-
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioItems } from '../data/siteData';
 
 const PortfolioSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [hovered, setHovered] = useState<number | null>(null);
 
-  // Build filter tabs from unique categories
   const categories = ['All', ...Array.from(new Set(portfolioItems.map(i => i.category)))];
 
   const filtered = activeFilter === 'All'
@@ -120,7 +17,6 @@ const PortfolioSection: React.FC = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
 
-        /* ── Section ───────────────────────────────────────── */
         .pf-section {
           font-family: 'DM Sans', sans-serif;
           background: #0a0a0a;
@@ -129,8 +25,6 @@ const PortfolioSection: React.FC = () => {
           position: relative;
           overflow: hidden;
         }
-
-        /* ── Background ────────────────────────────────────── */
         .pf-blob {
           position: absolute;
           border-radius: 50%;
@@ -160,8 +54,6 @@ const PortfolioSection: React.FC = () => {
           letter-spacing: -0.04em;
           line-height: 1;
         }
-
-        /* ── Inner ─────────────────────────────────────────── */
         .pf-inner {
           max-width: 1200px;
           margin: 0 auto;
@@ -169,8 +61,6 @@ const PortfolioSection: React.FC = () => {
           position: relative;
           z-index: 1;
         }
-
-        /* ── Header ────────────────────────────────────────── */
         .pf-header {
           display: flex;
           align-items: flex-end;
@@ -190,10 +80,7 @@ const PortfolioSection: React.FC = () => {
           color: #ff9a6c;
           margin-bottom: 1.25rem;
         }
-        .pf-eyebrow-line {
-          width: 32px; height: 1px;
-          background: #ff6b35;
-        }
+        .pf-eyebrow-line { width: 32px; height: 1px; background: #ff6b35; }
         .pf-title {
           font-family: 'Playfair Display', serif;
           font-size: clamp(2rem, 4vw, 3.2rem);
@@ -215,8 +102,6 @@ const PortfolioSection: React.FC = () => {
           0%   { background-position: 0% center; }
           100% { background-position: 200% center; }
         }
-
-        /* ── Filter tabs ───────────────────────────────────── */
         .pf-filters {
           display: flex;
           align-items: flex-end;
@@ -249,33 +134,29 @@ const PortfolioSection: React.FC = () => {
           color: #fff;
           box-shadow: 0 8px 25px rgba(255,107,53,0.35);
         }
-
-        /* ── Grid ──────────────────────────────────────────── */
         .pf-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 1.5rem;
           margin-bottom: 3.5rem;
         }
-
-        /* ── Card ──────────────────────────────────────────── */
         .pf-card {
           position: relative;
           border-radius: 20px;
           overflow: hidden;
-          cursor: pointer;
           background: #111;
           border: 1px solid rgba(255,107,53,0.08);
           transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
           aspect-ratio: 4/3;
+          display: block;
+          text-decoration: none;
+          color: inherit;
         }
         .pf-card:hover {
           border-color: rgba(255,107,53,0.3);
           box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,107,53,0.08);
           transform: translateY(-6px) scale(1.01);
         }
-
-        /* Image */
         .pf-card-img {
           width: 100%; height: 100%;
           object-fit: cover;
@@ -288,31 +169,17 @@ const PortfolioSection: React.FC = () => {
           transform: scale(1.08);
           filter: grayscale(0%) brightness(0.65);
         }
-
-        /* Permanent bottom gradient */
         .pf-card-grad {
           position: absolute;
           inset: 0;
-          background: linear-gradient(
-            to top,
-            rgba(10,10,10,0.9) 0%,
-            rgba(10,10,10,0.3) 40%,
-            transparent 70%
-          );
+          background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.3) 40%, transparent 70%);
           pointer-events: none;
           z-index: 1;
           transition: opacity 0.4s;
         }
         .pf-card:hover .pf-card-grad {
-          background: linear-gradient(
-            to top,
-            rgba(10,10,10,0.85) 0%,
-            rgba(10,10,10,0.5) 50%,
-            rgba(255,107,53,0.08) 100%
-          );
+          background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.5) 50%, rgba(255,107,53,0.08) 100%);
         }
-
-        /* Bottom info (always visible, slides up on hover) */
         .pf-card-info {
           position: absolute;
           bottom: 0; left: 0; right: 0;
@@ -322,7 +189,6 @@ const PortfolioSection: React.FC = () => {
           transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .pf-card:hover .pf-card-info { transform: translateY(0); }
-
         .pf-card-cat {
           display: inline-block;
           font-size: 10px;
@@ -335,7 +201,6 @@ const PortfolioSection: React.FC = () => {
           transition: opacity 0.3s;
         }
         .pf-card:hover .pf-card-cat { opacity: 1; }
-
         .pf-card-title {
           font-family: 'Playfair Display', serif;
           font-size: 1.05rem;
@@ -346,8 +211,6 @@ const PortfolioSection: React.FC = () => {
           transition: color 0.3s;
         }
         .pf-card:hover .pf-card-title { color: #fff; }
-
-        /* Arrow that appears on hover */
         .pf-card-arrow {
           position: absolute;
           top: 1.25rem; right: 1.25rem;
@@ -365,8 +228,6 @@ const PortfolioSection: React.FC = () => {
           opacity: 1;
           transform: scale(1) rotate(0deg);
         }
-
-        /* Index number top-left */
         .pf-card-num {
           position: absolute;
           top: 1.25rem; left: 1.25rem;
@@ -379,11 +240,11 @@ const PortfolioSection: React.FC = () => {
         }
         .pf-card:hover .pf-card-num { color: rgba(245,240,235,0.6); }
 
-        /* ── See More button ───────────────────────────────── */
-        .pf-footer {
-          display: flex;
-          justify-content: center;
-        }
+        /* no-link state — when url is '#' or missing, show a subtle tooltip */
+        .pf-card.no-link { cursor: default; }
+        .pf-card.no-link .pf-card-arrow { background: rgba(255,107,53,0.5); }
+
+        .pf-footer { display: flex; justify-content: center; }
         .pf-btn {
           display: inline-flex;
           align-items: center;
@@ -423,18 +284,15 @@ const PortfolioSection: React.FC = () => {
         .pf-btn:hover::before { transform: scaleX(1); }
         .pf-btn span, .pf-btn svg { position: relative; z-index: 1; }
 
-        /* ── Divider ───────────────────────────────────────── */
         .pf-divider {
           width: 100%;
           height: 1px;
           background: linear-gradient(90deg, transparent, rgba(255,107,53,0.2), transparent);
         }
 
-        /* ── Mobile ────────────────────────────────────────── */
         @media (max-width: 900px) {
           .pf-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 768px) {
           .pf-section  { padding: 5rem 0 6rem; }
           .pf-inner    { padding: 0 1.25rem; }
@@ -447,7 +305,6 @@ const PortfolioSection: React.FC = () => {
           .pf-card-arrow { opacity: 1; transform: scale(1) rotate(0deg); }
           .pf-card-info  { transform: translateY(0); }
         }
-
         @media (max-width: 380px) {
           .pf-card-title { font-size: 0.95rem; }
           .pf-filter-btn { font-size: 11px; padding: 7px 14px; }
@@ -463,7 +320,6 @@ const PortfolioSection: React.FC = () => {
 
         <div className="pf-inner">
 
-          {/* Header + filters */}
           <motion.div
             className="pf-header"
             initial={{ opacity: 0, y: 30 }}
@@ -476,9 +332,7 @@ const PortfolioSection: React.FC = () => {
                 <span className="pf-eyebrow-line" />
                 Selected work
               </div>
-              <h2 className="pf-title">
-                My <em>Portfolio</em>
-              </h2>
+              <h2 className="pf-title">My <em>Portfolio</em></h2>
             </div>
 
             <div className="pf-filters">
@@ -494,7 +348,6 @@ const PortfolioSection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Grid */}
           <motion.div
             className="pf-grid"
             initial="hidden"
@@ -506,44 +359,52 @@ const PortfolioSection: React.FC = () => {
             }}
           >
             <AnimatePresence mode="popLayout">
-              {filtered.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  className="pf-card"
-                  layout
-                  initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                  onMouseEnter={() => setHovered(item.id)}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <span className="pf-card-num">{String(index + 1).padStart(2, '0')}</span>
+              {filtered.map((item, index) => {
+                const hasLink = item.url && item.url !== '#';
+                return (
+                  <motion.a
+                    key={item.id}
+                    className={`pf-card${!hasLink ? ' no-link' : ''}`}
+                    href={hasLink ? item.url : undefined}
+                    target={hasLink ? '_blank' : undefined}
+                    rel={hasLink ? 'noopener noreferrer' : undefined}
+                    onClick={!hasLink ? (e) => e.preventDefault() : undefined}
+                    layout
+                    initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                    onMouseEnter={() => setHovered(item.id)}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <span className="pf-card-num">{String(index + 1).padStart(2, '0')}</span>
 
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="pf-card-img"
-                  />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="pf-card-img"
+                    />
 
-                  <div className="pf-card-grad" />
+                    <div className="pf-card-grad" />
 
-                  <div className="pf-card-info">
-                    <span className="pf-card-cat">{item.category}</span>
-                    <div className="pf-card-title">{item.title}</div>
-                  </div>
+                    <div className="pf-card-info">
+                      <span className="pf-card-cat">{item.category}</span>
+                      <div className="pf-card-title">{item.title}</div>
+                    </div>
 
-                  <div className="pf-card-arrow">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M2 7h10M7 2l5 5-5 5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </motion.div>
-              ))}
+                    {hasLink && (
+                      <div className="pf-card-arrow">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M2 7h10M7 2l5 5-5 5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    )}
+                  </motion.a>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
 
-          {/* Footer CTA */}
           <motion.div
             className="pf-footer"
             initial={{ opacity: 0, y: 20 }}

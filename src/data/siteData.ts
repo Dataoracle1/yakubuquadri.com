@@ -228,7 +228,6 @@ export const footerColumns: FooterColumn[] = [
       { text: 'Services',  url: '#services' },
       { text: 'Portfolio', url: '#portfolio' },
       { text: 'Contact',   url: '#contact' },
-      { text: 'Blog',      url: '#' },
     ],
   },
   {

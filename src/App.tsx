@@ -8,7 +8,7 @@ import PortfolioSection from './components/PortfolioSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import ContactSection from './components/ContactSection';
 import TagsSection from './components/TagsSection';
-import BlogSection from './components/BlogSection';
+// import BlogSection from './components/BlogSection';
 import Footer from './components/Footer';
 import Preloader from './components/Preloader';
 import CursorAndProgress from './components/CursorAndProgress';
@@ -35,7 +35,7 @@ function App() {
           <TestimonialsSection />
           <ContactSection />
           <TagsSection />
-          <BlogSection />
+          {/* <BlogSection /> */}
         </main>
         <Footer />
       </div>

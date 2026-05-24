@@ -112,7 +112,8 @@ const HeroSection: React.FC = () => {
   return (
     <>
       <style>{`
-       
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+
         .hero-section {
           font-family: 'DM Sans', sans-serif;
           min-height: 100vh;
@@ -572,7 +573,7 @@ const HeroSection: React.FC = () => {
             <div className="ring ring-2"><div className="ring-dot" /></div>
             <div className="ring ring-1" />
             <div className="img-container">
-              <img src="https://i.postimg.cc/jqnmHCsJ/Quan2.png" alt="Yakubu Quadri" />
+              <img src="https://i.postimg.cc/jqnmHCsJ/Quan2.png" alt="Yakubu Quadri" loading="eager" fetchPriority="high" />
             </div>
             <div className="float-card float-card-1">
               <div className="card-label">Experience</div>

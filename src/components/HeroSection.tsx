@@ -515,29 +515,27 @@ const HeroSection: React.FC = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
-            }}
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.12 } } }}
           >
             <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-            <div className="badge">
-              <span className="badge-dot" />
-              Available for work
-            </div>
-            <div className="accent-line" />
+              <div className="badge">
+                <span className="badge-dot" />
+                Available for work
+              </div>
+              <div className="accent-line" />
+            </motion.div>
 
-            <h1 className="hero-title">
+            <motion.h1 className="hero-title" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
               <span className="name">Yakubu Quadri</span>
               <span className="role-wrap">
                 <span className="role">{displayed}</span>
                 <span className="cursor" />
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="hero-desc">
+            <motion.p className="hero-desc" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
               Building scalable, high-performance web applications with clean architecture and unforgettable user experiences.
-            </p>
+            </motion.p>
 
             <motion.div className="btn-row" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
               <Link to="portfolio" smooth duration={500} offset={-70}>
@@ -551,13 +549,9 @@ const HeroSection: React.FC = () => {
               <Link to="contact" smooth duration={500} offset={-70}>
                 <button className="btn-secondary">Hire Me</button>
               </Link>
-            </div>
-
             </motion.div>
-            <motion.div
-              className="stats-row"
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } } }}
-            >
+
+            <motion.div className="stats-row" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
               {heroStats.map((stat, i) => (
                 <div key={i}>
                   <span className="stat-value">{stat.value}</span>

@@ -3,17 +3,15 @@ import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { whyHireStats } from '../data/siteData';
 
-// Animated counter component
 const CountUp: React.FC<{ target: string; inView: boolean }> = ({ target, inView }) => {
   const [count, setCount] = useState(0);
-  const numericTarget = parseInt(target.replace(/\D/g, '')) || 0;
+  const numericTarget = parseInt(target.replace(/[^0-9]/g, '')) || 0;
   const suffix = target.replace(/[0-9]/g, '');
 
   useEffect(() => {
     if (!inView) return;
     let start = 0;
-    const duration = 1500;
-    const step = duration / numericTarget;
+    const step = 1500 / numericTarget;
     const timer = setInterval(() => {
       start += 1;
       setCount(start);
@@ -37,6 +35,7 @@ const WhyHireSection: React.FC = () => {
     if (statsRef.current) observer.observe(statsRef.current);
     return () => observer.disconnect();
   }, []);
+
   return (
     <>
       <style>{`
@@ -508,14 +507,35 @@ const WhyHireSection: React.FC = () => {
                 ))}
               </div>
 
-              <Link to="contact" smooth duration={500} offset={-70}>
-                <button className="wh-btn">
-                  Hire Me
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                <Link to="contact" smooth duration={500} offset={-70}>
+                  <button className="wh-btn">
+                    Hire Me
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </Link>
+                <a
+                  href="/cv.pdf"
+                  download
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    fontSize: '13px', fontWeight: 500, letterSpacing: '0.06em',
+                    textTransform: 'uppercase', color: 'rgba(245,240,235,0.5)',
+                    textDecoration: 'none', transition: 'color 0.3s',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#ff9a6c')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,235,0.5)')}
+                >
+                  Download CV
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
-                </button>
-              </Link>
+                </a>
+              </div>
             </motion.div>
 
             {/* Right — image */}

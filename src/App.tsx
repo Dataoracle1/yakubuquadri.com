@@ -5,7 +5,7 @@ import ServicesSection from './components/ServicesSection';
 import ExperienceSection from './components/ExperienceSection';
 import WhyHireSection from './components/WhyHireSection';
 import PortfolioSection from './components/PortfolioSection';
-import TestimonialsSection from './components/TestimonialsSection';
+// import TestimonialsSection from './components/TestimonialsSection';
 import ContactSection from './components/ContactSection';
 import TagsSection from './components/TagsSection';
 // import BlogSection from './components/BlogSection';
@@ -34,7 +34,7 @@ function App() {
           <ExperienceSection />
           <WhyHireSection />
           <PortfolioSection />
-          <TestimonialsSection />
+          {/* <TestimonialsSection /> */}
           <ContactSection />
           <TagsSection />
           {/* <BlogSection /> */}

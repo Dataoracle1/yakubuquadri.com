@@ -67,7 +67,7 @@ const ContactSection: React.FC = () => {
     @keyframes ct-shimmer{0%{background-position:0% center}100%{background-position:200% center}}
     .ct-body{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:start}
     .ct-info-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#f5f0eb;margin-bottom:1rem;letter-spacing:-.02em}
-    .ct-info-desc{font-size:.92rem;line-height:1.8;color:rgba(245,240,235,.65);font-weight:300;margin-bottom:2.5rem}
+    .ct-info-desc{font-size:.92rem;line-height:1.8;color:rgba(245,240,235,.85);font-weight:300;margin-bottom:2.5rem}
     .ct-items{display:flex;flex-direction:column;gap:1.25rem}
     .ct-item{display:flex;align-items:center;gap:1rem;cursor:default}
     .ct-item-icon{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.18);display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s}

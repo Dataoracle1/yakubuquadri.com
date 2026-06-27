@@ -383,6 +383,8 @@ const PortfolioSection: React.FC = () => {
                       src={item.image}
                       alt={item.title}
                       className="pf-card-img"
+                      loading="lazy"
+                      decoding="async"
                     />
 
                     <div className="pf-card-grad" />

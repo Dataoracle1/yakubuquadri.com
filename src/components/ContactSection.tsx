@@ -67,7 +67,7 @@ const ContactSection: React.FC = () => {
     @keyframes ct-shimmer{0%{background-position:0% center}100%{background-position:200% center}}
     .ct-body{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:start}
     .ct-info-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#f5f0eb;margin-bottom:1rem;letter-spacing:-.02em}
-    .ct-info-desc{font-size:.92rem;line-height:1.8;color:rgba(245,240,235,.65);font-weight:300;margin-bottom:2.5rem}
+    .ct-info-desc{font-size:.92rem;line-height:1.8;color:rgba(245,240,235,.45);font-weight:300;margin-bottom:2.5rem}
     .ct-items{display:flex;flex-direction:column;gap:1.25rem}
     .ct-item{display:flex;align-items:center;gap:1rem;cursor:default}
     .ct-item-icon{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.18);display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s}
@@ -83,7 +83,7 @@ const ContactSection: React.FC = () => {
     .ct-form-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%,rgba(255,107,53,.04) 0%,transparent 50%),radial-gradient(ellipse at 20% 100%,rgba(255,180,100,.03) 0%,transparent 50%);pointer-events:none;border-radius:28px}
     .ct-form-inner{position:relative;z-index:1}
     .ct-form-heading{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#1a1a1a;margin-bottom:.4rem;letter-spacing:-.02em}
-    .ct-form-sub{font-size:.85rem;color:rgba(30,30,30,.6);font-weight:300;margin-bottom:2rem}
+    .ct-form-sub{font-size:.85rem;color:rgba(30,30,30,.45);font-weight:300;margin-bottom:2rem}
     .ct-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
     .ct-field{display:flex;flex-direction:column;gap:5px}
     .ct-field.full{grid-column:1/-1}
@@ -104,7 +104,7 @@ const ContactSection: React.FC = () => {
     .ct-status-icon.success{background:rgba(34,197,94,.12);border:1.5px solid rgba(34,197,94,.3);color:#22c55e}
     .ct-status-icon.error{background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.25);color:#ef4444}
     .ct-status-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#1a1a1a;margin-bottom:.5rem}
-    .ct-status-msg{font-size:.9rem;color:rgba(30,30,30,.65);line-height:1.6;max-width:280px;margin-bottom:1.5rem}
+    .ct-status-msg{font-size:.9rem;color:rgba(30,30,30,.5);line-height:1.6;max-width:280px;margin-bottom:1.5rem}
     .ct-retry-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:#1a1a1a;color:#fff;border:none;padding:10px 24px;border-radius:100px;cursor:pointer;transition:opacity .2s}
     .ct-retry-btn:hover{opacity:.75}
     .ct-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,53,.2),transparent)}

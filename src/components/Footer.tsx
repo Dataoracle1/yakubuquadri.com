@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
         }
         .ft-tagline {
           font-size: 0.9rem;
-          color: rgba(245,240,235,0.55);
+          color: rgba(245,240,235,0.35);
           font-weight: 300;
           max-width: 320px;
           line-height: 1.7;
@@ -140,7 +140,7 @@ const Footer: React.FC = () => {
         .ft-about-text {
           font-size: 0.88rem;
           line-height: 1.8;
-          color: rgba(245,240,235,0.6);
+          color: rgba(245,240,235,0.38);
           font-weight: 300;
           margin-bottom: 1.5rem;
         }
@@ -176,7 +176,7 @@ const Footer: React.FC = () => {
         }
         .ft-link {
           font-size: 0.88rem;
-          color: rgba(245,240,235,0.6);
+          color: rgba(245,240,235,0.38);
           text-decoration: none;
           cursor: pointer;
           transition: color 0.3s;
@@ -202,7 +202,7 @@ const Footer: React.FC = () => {
         .ft-nl-text {
           font-size: 0.88rem;
           line-height: 1.75;
-          color: rgba(245,240,235,0.6);
+          color: rgba(245,240,235,0.38);
           font-weight: 300;
           margin-bottom: 1.25rem;
         }
@@ -262,7 +262,7 @@ const Footer: React.FC = () => {
         }
         .ft-copy {
           font-size: 12px;
-          color: rgba(245,240,235,0.4);
+          color: rgba(245,240,235,0.25);
           letter-spacing: 0.04em;
         }
         .ft-copy em {

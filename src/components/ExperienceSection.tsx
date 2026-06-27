@@ -267,11 +267,11 @@ const ExperienceSection: React.FC = () => {
         .ex-card-desc {
           font-size: 0.88rem;
           line-height: 1.75;
-          color: rgba(245,240,235,0.4);
+          color: rgba(245,240,235,0.78); /* increased from 0.40 */
           font-weight: 300;
           transition: color 0.3s;
         }
-        .ex-row.is-active .ex-card-desc { color: rgba(245,240,235,0.62); }
+        .ex-row.is-active .ex-card-desc { color: rgba(245,240,235,0.92); }
 
         /* ── Left / Right placement ────────────────────────── */
         .ex-col-left  { padding-right: 1.5rem; }

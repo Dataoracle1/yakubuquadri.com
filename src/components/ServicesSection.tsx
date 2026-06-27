@@ -228,12 +228,12 @@ const ServicesSection: React.FC = () => {
         .sv-card-desc {
           font-size: 0.9rem;
           line-height: 1.75;
-          color: rgba(245,240,235,0.42);
+          color: rgba(245,240,235,0.78); /* increased from 0.42 */
           font-weight: 300;
           flex: 1;
           transition: color 0.3s;
         }
-        .sv-card.is-hovered .sv-card-desc { color: rgba(245,240,235,0.6); }
+        .sv-card.is-hovered .sv-card-desc { color: rgba(245,240,235,0.92); }
 
         /* arrow */
         .sv-card-arrow {

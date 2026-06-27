@@ -156,7 +156,7 @@ const WhyHireSection: React.FC = () => {
         .wh-desc {
           font-size: 1rem;
           line-height: 1.85;
-          color: rgba(245,240,235,0.5);
+          color: rgba(245,240,235,0.82); /* increased from 0.50 */
           font-weight: 300;
           margin-bottom: 2.5rem;
           max-width: 480px;

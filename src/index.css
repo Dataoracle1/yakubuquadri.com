@@ -11,7 +11,7 @@
   --clr-bg-alt:    #0d0d0d;
   --clr-bg-card:   #0f0f0f;
   --clr-text:      #f5f0eb;
-  --clr-text-muted: rgba(245, 240, 235, 0.42);
+  --clr-text-muted: rgba(245, 240, 235, 0.75); /* increased from 0.42 */
   --clr-orange:    #ff6b35;
   --clr-orange-lt: #ffaa70;
   --clr-orange-dim: rgba(255, 107, 53, 0.12);
@@ -160,7 +160,7 @@ img {
   .bg-orange   { background-color: #ff6b35; }
   .text-light  { color: #f5f0eb; }
   .text-dark   { color: #0a0a0a; }
-  .text-text-gray { color: rgba(245, 240, 235, 0.45); }
+  .text-text-gray { color: rgba(245, 240, 235, 0.75); } /* increased from 0.45 */
   .shadow-hero {
     box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 40px rgba(255,107,53,0.1);
   }

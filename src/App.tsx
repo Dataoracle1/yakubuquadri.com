@@ -15,8 +15,7 @@ import CursorAndProgress from './components/CursorAndProgress';
 import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
-  const isMobile = window.innerWidth < 768;
-  const [loading, setLoading] = useState(!isMobile);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);

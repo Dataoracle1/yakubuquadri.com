@@ -4,7 +4,7 @@ import { portfolioItems } from '../data/siteData';
 
 const PortfolioSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [, setHovered] = useState<number | null>(null);
 
   const categories = ['All', ...Array.from(new Set(portfolioItems.map(i => i.category)))];
 

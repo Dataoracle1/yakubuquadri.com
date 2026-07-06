@@ -47,32 +47,32 @@ export const services: Service[] = [
 // ── Experience ────────────────────────────────
 export const experiences: Experience[] = [
   {
-    date: 'Jan 2022 - Present',
+    date: 'Feb 2026 - Present',
     title: 'Self-Employed',
-    company: 'NYC',
-    description: 'Working as a freelance consultant advising on web and product design projects.',
+    company: 'Self-Employed',
+    description: 'Building modern full-stack web applications using React, Node.js, and other cutting-edge technologies. and deploying applications with modern deployment tools and platforms.',
     position: 'left',
   },
   {
-    date: 'Aug 2018 - Dec 2021',
-    title: 'UI/UX Designer',
-    company: 'Insightsource',
-    description: 'Creating user interfaces and improving user experiences for web and mobile applications.',
+    date: '2026',
+    title: 'Hospiatl Management SaaS',
+    company: 'Personal Project',
+    description: 'Designed and developed a hospital management platform with patient records and scheduling, billing, staff management, and secure authentication.',
     position: 'right',
   },
   {
-    date: 'Sep 2015 - Aug 2018',
-    title: 'Web Designer',
-    company: 'KG Design Studio',
-    description: 'Designed responsive websites and digital experiences for various clients.',
+    date: '2026',
+    title: 'Club Treasury Website',
+    company: 'Full Stack Web Application',
+    description: 'Built a web-based club treasury management system clubs to manage income, expenses, and financial records with secure authentication and an intuitive dashboard.',
     position: 'left',
   },
 ];
 
 // ── Why Hire stats ────────────────────────────
 export const whyHireStats: Stat[] = [
-  { value: '5+', label: 'Projects Completed' },
-  { value: '5+', label: 'Happy Clients' },
+  { value: '4+', label: 'Projects Completed' },
+  { value: '2+', label: 'Happy Clients' },
   { value: '2+', label: 'Years Experience' },
 ];
 
@@ -80,14 +80,14 @@ export const whyHireStats: Stat[] = [
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    image: 'https://pikwy.com/web/6a4bd48123f1dd224e577fb5',
+    image: 'https://i.postimg.cc/wvVYkFng/medissanscreenshot.jpg',
     title: 'UX/UI Design',
     category: 'Design',
     url: 'https://www.medissan.com'
   },
   {
     id: 2,
-    image: 'https://pikwy.com/web/6a4bd4df79d49036687a3189',
+    image: 'https://i.postimg.cc/gkGndTGz/inkstone.jpg',
     title: 'Landing Page',
     category: 'Design',
     url: 'https://inkstonemediang.vercel.app'

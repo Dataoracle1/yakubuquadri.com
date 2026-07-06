@@ -13,7 +13,7 @@ export const navLinks = [
 // ── Hero stats ────────────────────────────────
 export const heroStats: Stat[] = [
   { value: '2+', label: 'Years Experience' },
-  { value: '5+', label: 'Clients Served' },
+  { value: '2+', label: 'Clients Served' },
 ];
 
 // ── Services ──────────────────────────────────
@@ -55,7 +55,7 @@ export const experiences: Experience[] = [
   },
   {
     date: '2026',
-    title: 'Hospiatl Management SaaS',
+    title: 'Hospital Management System SaaS',
     company: 'Personal Project',
     description: 'Designed and developed a hospital management platform with patient records and scheduling, billing, staff management, and secure authentication.',
     position: 'right',

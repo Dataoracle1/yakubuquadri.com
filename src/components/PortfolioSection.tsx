@@ -4,7 +4,7 @@ import { portfolioItems } from '../data/siteData';
 
 const PortfolioSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
-  const [hovered, setHovered] = useState<number | null>(null);
+  // hovered state removed because its value was never read
 
   const categories = ['All', ...Array.from(new Set(portfolioItems.map(i => i.category)))];
 
@@ -374,8 +374,7 @@ const PortfolioSection: React.FC = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    onMouseEnter={() => setHovered(item.id)}
-                    onMouseLeave={() => setHovered(null)}
+                    // hover handlers removed (no visual effect tied to hover state)
                   >
                     <span className="pf-card-num">{String(index + 1).padStart(2, '0')}</span>
 

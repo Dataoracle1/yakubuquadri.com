@@ -80,42 +80,43 @@ export const whyHireStats: Stat[] = [
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    image: 'https://i.postimg.cc/76BYB4g0/Medissan.jpg',
+    image: 'https://pikwy.com/web/6a4bd48123f1dd224e577fb5',
     title: 'UX/UI Design',
     category: 'Design',
     url: 'https://www.medissan.com'
   },
   {
     id: 2,
-    image: 'https://i.postimg.cc/d38Nss43/inkstone.jpg',
+    image: 'https://pikwy.com/web/6a4bd4df79d49036687a3189',
     title: 'Landing Page',
     category: 'Design',
     url: 'https://inkstonemediang.vercel.app'
   },
-  {
-    id: 3,
-    image: 'https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Wireframe',
-    category: 'Wireframe',
-  },
-  {
-    id: 4,
-    image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Food Express - Food Delivery Solution',
-    category: 'App Design',
-  },
-  {
-    id: 5,
-    image: 'https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'E-commerce Website',
-    category: 'Web Design',
-  },
-  {
-    id: 6,
-    image: 'https://images.pexels.com/photos/844127/pexels-photo-844127.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    title: 'Mobile App UI',
-    category: 'App Design',
-  },
+{
+  id: 3,
+  image: 'https://i.postimg.cc/44SV8wX1/vasctreasury.png',
+  title: 'VASC Treasury',
+  category: 'Full Stack',
+  url: 'https://achievertreasury.vercel.app'
+},
+  // {
+  //   id: 4,
+  //   image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   title: 'Food Express - Food Delivery Solution',
+  //   category: 'App Design',
+  // },
+  // {
+  //   id: 5,
+  //   image: 'https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   title: 'E-commerce Website',
+  //   category: 'Web Design',
+  // },
+  // {
+  //   id: 6,
+  //   image: 'https://images.pexels.com/photos/844127/pexels-photo-844127.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   title: 'Mobile App UI',
+  //   category: 'App Design',
+  // },
 ];
 
 // ── Testimonials ──────────────────────────────

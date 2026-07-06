@@ -6,7 +6,7 @@ import { navLinks } from '../data/siteData';
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [, _setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {

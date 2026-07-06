@@ -5,8 +5,8 @@ const WhatsAppButton: React.FC = () => {
   const [hovered, setHovered] = useState(false);
 
   
-  const phone = '2349085446533';
-  const message = encodeURIComponent("Hi Yakubu, I'd like to discuss a project with you.");
+  const phone = '2347031661604';
+  const message = encodeURIComponent("Hi Yakubu Quadri, I'd like to discuss a project with you.");
   const url = `https://wa.me/${phone}?text=${message}`;
 
   return (

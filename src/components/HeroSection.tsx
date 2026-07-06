@@ -575,11 +575,11 @@ const HeroSection: React.FC = () => {
             </div>
             <div className="float-card float-card-1">
               <div className="card-label">Experience</div>
-              <div className="card-value">5+ Yrs</div>
+              <div className="card-value">2+ Yrs</div>
             </div>
             <div className="float-card float-card-2">
               <div className="card-label">Projects</div>
-              <div className="card-value">50+</div>
+              <div className="card-value">4+</div>
             </div>
           </motion.div>
         </div>
